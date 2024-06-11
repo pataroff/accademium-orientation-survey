@@ -51,7 +51,10 @@ const OrientationSurvey: React.FC<OrientationSurveyProps> = ({
     <>
       {/* Main Wrapper */}
       <div className='flex flex-col justify-center items-center gap-y-6 h-screen pt-[4rem]'>
-        <Progress value={progress} className='w-[28rem]' />
+        <Progress
+          value={progress}
+          className='absolute top-[7.5rem] w-[28rem] h-[20px]'
+        />
         {/* Question */}
         <h1 className='font-coolvetica text-3xl font-bold '>
           {questionsAndAnswers[questionIndex][0]}
@@ -100,10 +103,10 @@ const OrientationSurvey: React.FC<OrientationSurveyProps> = ({
           </button>
         </div>
         <button
-          className='bg-black rounded-2xl w-[24rem] py-2 mt-6'
+          className='bg-black rounded-2xl w-[22rem] h-[2.5rem] mt-6'
           onClick={handleNext}
         >
-          <h3 className='font-coolvetica font-normal text-lg text-white'>
+          <h3 className='font-coolvetica font-normal text-md text-white'>
             {questionIndex != questionsAndAnswers.length - 1
               ? 'Next question →'
               : 'Finish Survey →'}

@@ -6,16 +6,33 @@ import {
   getStudyFields,
   getJsonRegex,
 } from './utils';
+
 import OrientationSurvey from './components/OrientationSurvey';
+import StudyField from './components/StudyField';
 
 import { Toaster } from './components/ui/toaster';
-import { Loader2 } from 'lucide-react';
-import StudyField from './components/StudyField';
 import { Separator } from './components/ui/separator';
+import { Loader2 } from 'lucide-react';
 
 const App: React.FC = () => {
   const [recommendations, setRecommendations] =
-    useState<Recommendations | null>(null);
+    useState<Recommendations | null>({
+      recommendations: [
+        {
+          study_field: 'Business and Economics',
+          reason: '',
+        },
+        {
+          study_field: 'Exact and Information Sciences',
+          reason: '',
+        },
+        {
+          study_field: 'Science and Engineering',
+          reason: '',
+        },
+      ],
+    });
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const generateRecommendations = async (surveyAnswers: SurveyAnswers) => {
@@ -75,31 +92,31 @@ const App: React.FC = () => {
           },
         ],
         model: 'gpt-4o',
-        temperature: 0.5,
+        temperature: 0.2,
         max_tokens: 1000,
       }),
     };
 
-    // try {
-    //   const response = await fetch(
-    //     import.meta.env.VITE_OPENAI_API_URL,
-    //     options
-    //   );
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_OPENAI_API_URL,
+        options
+      );
 
-    //   const json = await response.json();
+      const json = await response.json();
 
-    //   const data = json.choices[0].message.content;
-    //   console.log('Data: ', data);
-    //   const dataFormatted = data.replace(getJsonRegex(), '');
-    //   console.log('Data Formatted:', dataFormatted);
-    //   const dataParsed = JSON.parse(dataFormatted);
-    //   console.log('Data Parsed:', dataParsed);
+      const data = json.choices[0].message.content;
+      console.log('Data: ', data);
+      const dataFormatted = data.replace(getJsonRegex(), '');
+      console.log('Data Formatted:', dataFormatted);
+      const dataParsed = JSON.parse(dataFormatted);
+      console.log('Data Parsed:', dataParsed);
 
-    //   setRecommendations(dataParsed);
-    //   setLoading(false);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+      setRecommendations(dataParsed);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -112,10 +129,13 @@ const App: React.FC = () => {
         ></img>
       </header>
       <main>
-        <Separator className='absolute top-28 left-32 w-[85%]' />
+        <Separator className='absolute top-24 left-32 w-[85%]' />
         {recommendations && !loading ? (
           <>
-            <StudyField />
+            <StudyField
+              recommendations={recommendations.recommendations}
+              setRecommendations={setRecommendations}
+            />
           </>
         ) : loading ? (
           <div className='flex justify-center items-center h-screen w-screen'>
@@ -127,7 +147,7 @@ const App: React.FC = () => {
             generateRecommendations={generateRecommendations}
           />
         )}
-        <Separator className='absolute bottom-8 left-32 w-[85%]' />
+        <Separator className='absolute bottom-10 left-32 w-[85%]' />
       </main>
       <Toaster />
     </>
