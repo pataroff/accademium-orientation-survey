@@ -8,11 +8,19 @@ import {
 } from './utils';
 import OrientationSurvey from './components/OrientationSurvey';
 
+import { Toaster } from './components/ui/toaster';
+import { Loader2 } from 'lucide-react';
+import StudyField from './components/StudyField';
+import { Separator } from './components/ui/separator';
+
 const App: React.FC = () => {
   const [recommendations, setRecommendations] =
     useState<Recommendations | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const generateRecommendations = async (surveyAnswers: SurveyAnswers) => {
+    setLoading(true);
+
     const prompt = `Based on the answers provided in the orientation survey below, recommend three study fields from the predefined study fields that would be the most suitable for the individual.
 
       Orientation Survey Questions and Answers:
@@ -72,33 +80,56 @@ const App: React.FC = () => {
       }),
     };
 
-    try {
-      const response = await fetch(
-        import.meta.env.VITE_OPENAI_API_URL,
-        options
-      );
+    // try {
+    //   const response = await fetch(
+    //     import.meta.env.VITE_OPENAI_API_URL,
+    //     options
+    //   );
 
-      const json = await response.json();
+    //   const json = await response.json();
 
-      const data = json.choices[0].message.content;
-      console.log('Data: ', data);
-      const dataFormatted = data.replace(getJsonRegex(), '');
-      console.log('Data Formatted:', dataFormatted);
-      const dataParsed = JSON.parse(dataFormatted);
-      console.log('Data Parsed:', dataParsed);
+    //   const data = json.choices[0].message.content;
+    //   console.log('Data: ', data);
+    //   const dataFormatted = data.replace(getJsonRegex(), '');
+    //   console.log('Data Formatted:', dataFormatted);
+    //   const dataParsed = JSON.parse(dataFormatted);
+    //   console.log('Data Parsed:', dataParsed);
 
-      setRecommendations(dataParsed);
-    } catch (error) {
-      console.error(error);
-    }
+    //   setRecommendations(dataParsed);
+    //   setLoading(false);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return (
     <>
-      <OrientationSurvey
-        questionsAndAnswers={getQuestionsAndAnswers()}
-        generateRecommendations={generateRecommendations}
-      />
+      <header>
+        <img
+          className='absolute -top-5'
+          src='../../images/Accademium_Logo.svg'
+          width={240}
+        ></img>
+      </header>
+      <main>
+        <Separator className='absolute top-28 left-32 w-[85%]' />
+        {recommendations && !loading ? (
+          <>
+            <StudyField />
+          </>
+        ) : loading ? (
+          <div className='flex justify-center items-center h-screen w-screen'>
+            <Loader2 className='w-24 h-24 animate-spin' />
+          </div>
+        ) : (
+          <OrientationSurvey
+            questionsAndAnswers={getQuestionsAndAnswers()}
+            generateRecommendations={generateRecommendations}
+          />
+        )}
+        <Separator className='absolute bottom-8 left-32 w-[85%]' />
+      </main>
+      <Toaster />
     </>
   );
 };
