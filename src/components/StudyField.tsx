@@ -4,6 +4,19 @@ import { Progress } from './ui/progress';
 import { Recommendation, Recommendations } from '@/types';
 import { useToast } from './ui/use-toast';
 
+const studyFieldToImage = new Map<string, string>([
+  ['Language and Communication', '../../images/language-and-communication.png'],
+  ['Behaviour and Society', '../../images/behaviour-and-society.png'],
+  ['Business and Economics', '../../images/business-and-economics.png'],
+  [
+    'Exact and Information Sciences',
+    '../../images/exact-and-information-sciences.png',
+  ],
+  ['Sports and Health', '../../images/sports-and-health.png'],
+  ['Science and Engineering', '../../images/science-and-engineering.png'],
+  ['Arts and Culture', '../../images/arts-and-culture.png'],
+]);
+
 const StudyField: React.FC<{
   recommendations: Recommendation[];
   setRecommendations: React.Dispatch<
@@ -28,17 +41,7 @@ const StudyField: React.FC<{
   };
 
   const getImage = (study_field: string) => {
-    if (study_field === 'Business and Economics') {
-      return '../../images/business-and-economics.png';
-    }
-
-    if (study_field === 'Exact and Information Sciences') {
-      return '../../images/exact-and-information-sciences.png';
-    }
-
-    if (study_field === 'Science and Engineering') {
-      return '../../images/science-and-engineering.png';
-    }
+    return studyFieldToImage.get(study_field);
   };
 
   return (
@@ -66,7 +69,7 @@ const StudyField: React.FC<{
               className='flex flex-col justify-center items-center'
             >
               <button
-                className={`border-2 rounded-xl w-[14rem] h-[16rem] hover:border-black ${
+                className={`border-2 rounded-xl w-[13.5rem] h-[16rem] hover:border-black ${
                   selected === index ? 'border-black' : ''
                 } flex justify-center items-center relative`}
                 onClick={() => setSelected(index)}

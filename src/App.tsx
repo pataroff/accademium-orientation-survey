@@ -19,15 +19,15 @@ const App: React.FC = () => {
     useState<Recommendations | null>({
       recommendations: [
         {
-          study_field: 'Business and Economics',
+          study_field: 'Arts and Culture',
           reason: '',
         },
         {
-          study_field: 'Exact and Information Sciences',
+          study_field: 'Language and Communication',
           reason: '',
         },
         {
-          study_field: 'Science and Engineering',
+          study_field: 'Behaviour and Society',
           reason: '',
         },
       ],
