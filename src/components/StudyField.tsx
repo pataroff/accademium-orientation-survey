@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 
+import { getQuestions, getStudyFields, getJsonRegex } from '@/utils';
+
 import { Progress } from './ui/progress';
-import { Recommendation, Recommendations } from '@/types';
+import { Recommendation, Recommendations, SurveyAnswers } from '@/types';
 import { useToast } from './ui/use-toast';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const studyFieldToImage = new Map<string, string>([
   ['Language and Communication', '../../images/language-and-communication.png'],
@@ -18,11 +23,24 @@ const studyFieldToImage = new Map<string, string>([
 ]);
 
 const StudyField: React.FC<{
+  surveyAnswers: SurveyAnswers;
   recommendations: Recommendation[];
+  disabled: boolean;
+  setSurveyAnswers: React.Dispatch<React.SetStateAction<SurveyAnswers | null>>;
   setRecommendations: React.Dispatch<
     React.SetStateAction<Recommendations | null>
   >;
-}> = ({ recommendations, setRecommendations }) => {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({
+  surveyAnswers,
+  recommendations,
+  disabled,
+  setSurveyAnswers,
+  setRecommendations,
+  setLoading,
+  setDisabled,
+}) => {
   const { toast } = useToast();
 
   const [selected, setSelected] = useState<number>(-1);
@@ -37,7 +55,110 @@ const StudyField: React.FC<{
   };
 
   const handleRetry = () => {
+    setSurveyAnswers(null);
     setRecommendations(null);
+  };
+
+  const handleRandomize = () => {
+    setDisabled(true);
+    generateRandomRecommendations(
+      recommendations,
+      surveyAnswers,
+      setRecommendations
+    );
+  };
+
+  const generateRandomRecommendations = async (
+    recommendations: Recommendation[],
+    surveyAnswers: SurveyAnswers,
+    setRecommendations: React.Dispatch<
+      React.SetStateAction<Recommendations | null>
+    >
+  ) => {
+    setLoading(true);
+
+    const prompt = `Based on the previous recommendations and the answers provided in the orientation survey below, generate three additional study fields from the predefined study fields that would also be suitable for the individual. Ensure the new recommendations are unique and not already included in the previous ones.
+
+      Orientation Survey Questions and Answers:
+      1. ${getQuestions()[0]} ${surveyAnswers.careerInterests}
+      2. ${getQuestions()[1]} ${surveyAnswers.workEnvironment}
+      3. ${getQuestions()[2]} ${surveyAnswers.problemSolving}
+      4. ${getQuestions()[3]} ${surveyAnswers.skillsDevelopment}
+      5. ${getQuestions()[4]} ${surveyAnswers.taskPreference}
+      6. ${getQuestions()[5]} ${surveyAnswers.learningPreference}
+      7. ${getQuestions()[6]} ${surveyAnswers.careerGoals}
+      8. ${getQuestions()[7]} ${surveyAnswers.careerMotivation}
+      9. ${getQuestions()[8]} ${surveyAnswers.adversityHandling}
+      10. ${getQuestions()[9]} ${surveyAnswers.workLifeBalance}
+
+    Previous Recommendations: ${recommendations
+      .map((recommendation) => recommendation.study_field)
+      .join(', ')}
+  
+    Predefined Study Fields: ${getStudyFields().join(', ')}
+  
+    Please provide the recommendations in the following JSON format:
+  
+    {
+        "recommendations": [
+            {
+                "study_field": "Field 1",
+                "reason": "Reason for recommending Field 1."
+            },
+            {
+                "study_field": "Field 2",
+                "reason": "Reason for recommending Field 2."
+            },
+            {
+                "study_field": "Field 3",
+                "reason": "Reason for recommending Field 3."
+            }
+        ]
+    }`;
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: 'system',
+            content: 'You are an expert in education and career counseling.',
+          },
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        model: 'gpt-4o',
+        temperature: 0.2,
+        max_tokens: 1000,
+      }),
+    };
+
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_OPENAI_API_URL,
+        options
+      );
+
+      const json = await response.json();
+
+      const data = json.choices[0].message.content;
+      console.log('Data: ', data);
+      const dataFormatted = data.replace(getJsonRegex(), '');
+      console.log('Data Formatted:', dataFormatted);
+      const dataParsed = JSON.parse(dataFormatted);
+      console.log('Data Parsed:', dataParsed);
+
+      setRecommendations(dataParsed);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getImage = (study_field: string) => {
@@ -48,6 +169,19 @@ const StudyField: React.FC<{
     <>
       {/* Main Wrapper */}
       <div className='flex flex-col justify-center items-center gap-y-6 h-screen pt-[4rem] relative'>
+        <button
+          disabled={disabled}
+          className={`absolute top-[7.5rem] right-[10.5rem] ${
+            disabled ? 'opacity-25' : ''
+          }`}
+          onClick={() => handleRandomize()}
+        >
+          <img
+            src='../../images/randomize-icon.png'
+            width={35}
+            height={35}
+          ></img>
+        </button>
         <button
           className='absolute top-[7.5rem] right-[7.5rem]'
           onClick={() => handleRetry()}
@@ -62,6 +196,7 @@ const StudyField: React.FC<{
           The study fields that align the best {'\n'} with your interests and
           strengths
         </pre>
+        {/* Recommendations Wrapper */}
         <div className='flex flex-row gap-x-8'>
           {recommendations.map((recommendation, index) => (
             <div
@@ -97,7 +232,8 @@ const StudyField: React.FC<{
           onClick={() => handleNext()}
         >
           <h3 className='font-coolvetica font-normal text-md text-white'>
-            Next →
+            Next{' '}
+            <FontAwesomeIcon icon={faArrowRight} className='text-sm ml-1' />
           </h3>
         </button>
       </div>

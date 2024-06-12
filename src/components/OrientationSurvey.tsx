@@ -1,30 +1,23 @@
 import React, { useState } from 'react';
 import { getSurveyAnswersKeys } from '../utils';
-import { OrientationSurveyProps, SurveyAnswers } from '../types';
+import { OrientationSurveyProps } from '../types';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from './ui/use-toast';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
 const OrientationSurvey: React.FC<OrientationSurveyProps> = ({
   questionsAndAnswers,
+  surveyAnswers,
   generateRecommendations,
+  setSurveyAnswers,
 }) => {
   const { toast } = useToast();
 
   const [selected, setSelected] = useState<number>(0);
   const [questionIndex, setQuesitonIndex] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
-  const [surveyAnswers, setSurveyAnswers] = useState<SurveyAnswers>({
-    careerInterests: '',
-    workEnvironment: '',
-    problemSolving: '',
-    skillsDevelopment: '',
-    taskPreference: '',
-    learningPreference: '',
-    careerGoals: '',
-    careerMotivation: '',
-    adversityHandling: '',
-    workLifeBalance: '',
-  });
 
   const handleNext = () => {
     if (selected === 0) {
@@ -108,8 +101,9 @@ const OrientationSurvey: React.FC<OrientationSurveyProps> = ({
         >
           <h3 className='font-coolvetica font-normal text-md text-white'>
             {questionIndex != questionsAndAnswers.length - 1
-              ? 'Next question →'
-              : 'Finish Survey →'}
+              ? 'Next question'
+              : 'Finish Survey '}
+            <FontAwesomeIcon icon={faArrowRight} className='text-sm ml-1' />
           </h3>
         </button>
       </div>

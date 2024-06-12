@@ -23,4 +23,6 @@ export interface SurveyAnswers {
 export interface OrientationSurveyProps {
   questionsAndAnswers: string[][];
   generateRecommendations: (surveyAnswers: SurveyAnswers) => void;
+  surveyAnswers: SurveyAnswers;
+  setSurveyAnswers: React.Dispatch<React.SetStateAction<SurveyAnswers>>;
 }

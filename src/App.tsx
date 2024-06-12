@@ -15,25 +15,13 @@ import { Separator } from './components/ui/separator';
 import { Loader2 } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [recommendations, setRecommendations] =
-    useState<Recommendations | null>({
-      recommendations: [
-        {
-          study_field: 'Arts and Culture',
-          reason: '',
-        },
-        {
-          study_field: 'Language and Communication',
-          reason: '',
-        },
-        {
-          study_field: 'Behaviour and Society',
-          reason: '',
-        },
-      ],
-    });
-
   const [loading, setLoading] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState(false);
+  const [surveyAnswers, setSurveyAnswers] = useState<SurveyAnswers | null>(
+    null
+  );
+  const [recommendations, setRecommendations] =
+    useState<Recommendations | null>(null);
 
   const generateRecommendations = async (surveyAnswers: SurveyAnswers) => {
     setLoading(true);
@@ -133,8 +121,13 @@ const App: React.FC = () => {
         {recommendations && !loading ? (
           <>
             <StudyField
+              surveyAnswers={surveyAnswers}
               recommendations={recommendations.recommendations}
+              disabled={disabled}
+              setSurveyAnswers={setSurveyAnswers}
               setRecommendations={setRecommendations}
+              setLoading={setLoading}
+              setDisabled={setDisabled}
             />
           </>
         ) : loading ? (
@@ -145,6 +138,8 @@ const App: React.FC = () => {
           <OrientationSurvey
             questionsAndAnswers={getQuestionsAndAnswers()}
             generateRecommendations={generateRecommendations}
+            surveyAnswers={surveyAnswers}
+            setSurveyAnswers={setSurveyAnswers}
           />
         )}
         <Separator className='absolute bottom-10 left-32 w-[85%]' />
