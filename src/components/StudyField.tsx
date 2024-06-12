@@ -23,7 +23,7 @@ const studyFieldToImage = new Map<string, string>([
 ]);
 
 const StudyField: React.FC<{
-  surveyAnswers: SurveyAnswers;
+  surveyAnswers: SurveyAnswers | null;
   recommendations: Recommendation[];
   disabled: boolean;
   setSurveyAnswers: React.Dispatch<React.SetStateAction<SurveyAnswers | null>>;
