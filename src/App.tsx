@@ -17,9 +17,18 @@ import { Loader2 } from 'lucide-react';
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [disabled, setDisabled] = useState(false);
-  const [surveyAnswers, setSurveyAnswers] = useState<SurveyAnswers | null>(
-    null
-  );
+  const [surveyAnswers, setSurveyAnswers] = useState<SurveyAnswers>({
+    careerInterests: '',
+    workEnvironment: '',
+    problemSolving: '',
+    skillsDevelopment: '',
+    taskPreference: '',
+    learningPreference: '',
+    careerGoals: '',
+    careerMotivation: '',
+    adversityHandling: '',
+    workLifeBalance: '',
+  });
   const [recommendations, setRecommendations] =
     useState<Recommendations | null>(null);
 

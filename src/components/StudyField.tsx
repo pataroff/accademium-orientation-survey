@@ -23,10 +23,10 @@ const studyFieldToImage = new Map<string, string>([
 ]);
 
 const StudyField: React.FC<{
-  surveyAnswers: SurveyAnswers | null;
+  surveyAnswers: SurveyAnswers;
   recommendations: Recommendation[];
   disabled: boolean;
-  setSurveyAnswers: React.Dispatch<React.SetStateAction<SurveyAnswers | null>>;
+  setSurveyAnswers: React.Dispatch<React.SetStateAction<SurveyAnswers>>;
   setRecommendations: React.Dispatch<
     React.SetStateAction<Recommendations | null>
   >;
@@ -55,7 +55,18 @@ const StudyField: React.FC<{
   };
 
   const handleRetry = () => {
-    setSurveyAnswers(null);
+    setSurveyAnswers({
+      careerInterests: '',
+      workEnvironment: '',
+      problemSolving: '',
+      skillsDevelopment: '',
+      taskPreference: '',
+      learningPreference: '',
+      careerGoals: '',
+      careerMotivation: '',
+      adversityHandling: '',
+      workLifeBalance: '',
+    });
     setRecommendations(null);
   };
 
