@@ -1,6 +1,7 @@
 # Accademium Orientation Survey Prototype
 
-👉🏻 [Live Preview](https://accademium-orientation-survey.vercel.app/)
+- 👉🏻 [Live Preview](https://accademium-orientation-survey.vercel.app/)
+- 📺 [Video Walkthrough](https://video.hanze.nl/my-media)
 
 ## Overview
 This document outlines the final version of the prototype for "Accademium", specifically focusing on the Orientation Survey component. This prototype represents the next step in the design process, evolving from a high-fidelity click-through prototype created in Adobe XD to a fully interactive application developed with React and TypeScript.
@@ -10,43 +11,42 @@ The primary aim of this prototype is to demonstrate the complex type of interact
 
 ## Functionality
 
-### 1. User Interaction and Local State Management:
+#### 1. User Interaction and Local State Management:
 
 - Users interact with an orientation survey designed to capture their preferences, strengths, and interests.
 - As users progress through the survey, their responses are stored in the local state of the application.
 
-### 2. Integration with OpenAI API:
+#### 2. Integration with OpenAI API:
 
 - Upon completing the survey, the local state (containing the user's responses) is sent to the OpenAI API.
 - The AI model processes the responses and generates personalized recommendations for study fields based on the provided answers.
 
-### 3. Gamification and User Control:
+#### 3. Gamification and User Control:
 
 - After receiving initial recommendations, users can refine their results using the "Randomize" button.
 - The "Randomize" button, represented by a dice icon, provides an additional set of three recommendations aligned with the user's survey responses.
 
 ## Features
-
-### 1. High-Fidelity User Interface
+#### 1. High-Fidelity User Interface
 - Enhances the visual and interactive elements from the hi-fi prototype, ensuring a polished and engaging user experience.
 - Utilizes intuitive design principles to guide users seamlessly through the orientation survey and recommendation process.
 
-### 2. Real-Time Data Handling
+#### 2. Real-Time Data Handling
 - Captures and manages user responses in real-time, maintaining data accuracy and security throughout the survey interaction.
 - Enables immediate updates and feedback based on user inputs, enhancing responsiveness and user satisfaction.
 
-### 3. AI-Driven Recommendations
+#### 3. AI-Driven Recommendations
 - Employs OpenAI's advanced models to analyze user data and generate personalized study field recommendations.
 - Provides tailored suggestions based on user preferences and survey responses, aiding users in making informed academic decisions.
 
-### 4. Gamification with User Control
+#### 4. Gamification with User Control
 - Introduces gamified elements such as the "Randomize" button, represented by a dice icon, at the end of the survey.
 - Allows users to explore alternative study field recommendations aligned with their interests, enhancing engagement and satisfaction.
 - Enhances user control by providing options to refine recommendations, promoting a personalized and enjoyable experience.
 
 ## Installation
 
-You can access the prototype directly from this link: [Live Preview](https://accademium-orientation-survey.vercel.app/)
+You can access the prototype directly from [this link](https://accademium-orientation-survey.vercel.app/).
 
 Alternatively, you can run the prototype locally: 
 1. Navigate to `accademium-orientation-survey` folder.
