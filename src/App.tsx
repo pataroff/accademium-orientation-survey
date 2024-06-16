@@ -30,7 +30,25 @@ const App: React.FC = () => {
     workLifeBalance: '',
   });
   const [recommendations, setRecommendations] =
-    useState<Recommendations | null>(null);
+    useState<Recommendations | null>({
+      recommendations: [
+        {
+          study_field: 'Business and Economics',
+          reason:
+            'Given your primary career interest in Business and Management, your long-term goal of starting your own business, and your motivation to solve complex problems, a study in Business and Economics aligns well with your aspirations and interests.',
+        },
+        {
+          study_field: 'Science and Engineering',
+          reason:
+            'Your preference for a creative and innovative work environment, enjoyment of building and designing systems, and hands-on experimentation indicate that Science and Engineering would be a suitable field for you. This field will also help you develop critical thinking and problem-solving abilities.',
+        },
+        {
+          study_field: 'Exact and Information Sciences',
+          reason:
+            'Your interest in solving complex problems, preference for hands-on learning, and desire to build and design systems suggest that Exact and Information Sciences would be a good fit. This field will provide you with the technical skills and knowledge needed to innovate and potentially start your own tech-related business.',
+        },
+      ],
+    });
 
   const generateRecommendations = async (surveyAnswers: SurveyAnswers) => {
     setLoading(true);
