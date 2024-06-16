@@ -4,7 +4,7 @@ const Tooltip: React.FC<{ text: string; children: ReactNode }> = ({
   text,
   children,
 }) => {
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
 
   return (
     <div
