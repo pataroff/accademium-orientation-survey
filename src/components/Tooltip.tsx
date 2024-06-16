@@ -14,7 +14,7 @@ const Tooltip: React.FC<{ text: string; children: ReactNode }> = ({
     >
       {children}
       {visible && (
-        <div className='absolute -top-[5.5rem] border ml-2 w-96 rounded-xl bg-white p-6 z-10'>
+        <div className='absolute -top-[5.5rem] border ml-2 w-[6rem] rounded-xl bg-white p-6 z-10'>
           <h3 className='font-coolvetica font-normal text-xs'>{text}</h3>
         </div>
       )}
