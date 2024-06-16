@@ -8,6 +8,7 @@ import { useToast } from './ui/use-toast';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import Tooltip from './Tooltip';
 
 const studyFieldToImage = new Map<string, string>([
   ['Language and Communication', '../../images/language-and-communication.png'],
@@ -220,12 +221,15 @@ const StudyField: React.FC<{
                 } flex justify-center items-center relative`}
                 onClick={() => setSelected(index)}
               >
-                <img
-                  className='absolute top-3 right-3'
-                  src='../../images/info-icon.png'
-                  width={22}
-                  height={22}
-                ></img>
+                <Tooltip text={recommendation.reason}>
+                  <img
+                    className='absolute top-3 right-3'
+                    src='../../images/info-icon.png'
+                    width={22}
+                    height={22}
+                  ></img>
+                </Tooltip>
+
                 <img
                   src={getImage(recommendation.study_field)}
                   width={150}

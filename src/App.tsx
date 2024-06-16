@@ -30,7 +30,25 @@ const App: React.FC = () => {
     workLifeBalance: '',
   });
   const [recommendations, setRecommendations] =
-    useState<Recommendations | null>(null);
+    useState<Recommendations | null>({
+      recommendations: [
+        {
+          study_field: 'Business and Economics',
+          reason:
+            "Given the primary career interest in Business and Management, and a preference for strategic planning and forecasting, this field aligns well with the individual's goals and skills development in critical thinking and problem-solving.",
+        },
+        {
+          study_field: 'Arts and Culture',
+          reason:
+            'The preference for a creative and innovative work environment, enjoyment in creating and expressing ideas, and long-term career goals in artistic or creative endeavors make Arts and Culture a suitable field.',
+        },
+        {
+          study_field: 'Language and Communication',
+          reason:
+            "The individual's preference for group discussions and collaborative projects, along with a motivation to solve complex problems and challenges, suggests that Language and Communication could be a good fit, allowing for creative expression and strategic thinking.",
+        },
+      ],
+    });
 
   const generateRecommendations = async (surveyAnswers: SurveyAnswers) => {
     setLoading(true);
