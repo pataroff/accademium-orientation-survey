@@ -2,8 +2,7 @@
 
 - 👉🏻 [Live Preview](https://accademium-orientation-survey.vercel.app/)
 - 🎥 [Video Walkthrough - Kaltura](https://video.hanze.nl/mediashare/69b65d97f2070fce/media/Video_Walkthrough_Ivan+Patarov_414334/0_86eqxhg2)
-- 📺 [Video Walkthrough - YouTube]
-  (https://www.youtube.com/watch?v=zMLe1_y9GXQ)
+- 📺 [Video Walkthrough - YouTube](https://www.youtube.com/watch?v=zMLe1_y9GXQ)
 
 ## Overview
 
