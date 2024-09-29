@@ -1,16 +1,16 @@
 # Accademium Orientation Survey Prototype
 
 - 👉🏻 [Live Preview](https://accademium-orientation-survey.vercel.app/)
-- 🎥 [Video Walkthrough - Kaltura](https://video.hanze.nl/mediashare/69b65d97f2070fce/media/Video_Walkthrough_Ivan+Patarov_414334/0_86eqxhg2)
-- 📺 [Video Walkthrough - YouTube](https://www.youtube.com/watch?v=zMLe1_y9GXQ)
+- 🎥 [Video Walkthrough](https://www.youtube.com/watch?v=zMLe1_y9GXQ)
+- 🧑🏻‍💻 [Source Code](https://github.com/pataroff/accademium-orientation-survey)
 
 ## Overview
 
-This document outlines the final version of the prototype for "Accademium", specifically focusing on the Orientation Survey component. This prototype represents the next step in the design process, evolving from a high-fidelity click-through prototype created in Adobe XD to a fully interactive application developed with React and TypeScript.
+This is the work-in-progress proof of concept prototype of "Accademium," specifically focusing on the career orientation section. It has transitioned from a click-through prototype created in Adobe XD and Figma to a fully functional web application built using React and TypeScript. This prototype represents the next step in the design process, allowing for real user interactions and feedback to inform further iterations.
 
 ## Purpose
 
-The primary aim of this prototype is to demonstrate the complex type of interactivity within the Accademium platform. It showcases how user responses are handled, stored, and used to provide personalized recommendations for study fields.
+The primary aim of this prototype is to demonstrate the interactive features within the Accademium platform. It showcases how user responses are collected, stored, and utilized in conjunction with OpenAI models to generate personalized recommendations for study fields. Additionally, this proof of concept was created to evaluate the technical feasibility of the application and to assess the relevance of the AI recommendations in relation to user expectations and preferences.
 
 ## Functionality
 
@@ -58,7 +58,7 @@ You can access the prototype directly from [this link](https://accademium-orient
 
 Alternatively, you can run the prototype locally:
 
-1. Navigate to `accademium-orientation-survey` folder.
+1. Navigate to the `accademium-orientation-survey` folder.
 2. Open a terminal (e.g., Git Bash) and ensure you are inside the `accademium-orientation-survey` folder.
 3. Run `npm install` to install the necessary dependencies.
 4. After the installation is complete, run the command `npm run dev` in the terminal.
